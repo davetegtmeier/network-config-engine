@@ -1,0 +1,42 @@
+sites:
+  ACY-DC1:
+    name: Allegheny City
+    type: onprem
+    zones:
+      - CLE
+      - CORE
+      - TDIST
+      - UDIST
+
+  HFA-DC1:
+    name: Harper Falls
+    type: onprem
+    zones:
+      - CLE
+      - CORE
+      - TDIST
+      - UDIST
+
+  FCE-CL1:
+    name: Forge Cloud East
+    type: cloud
+    zones:
+      - DCI
+      - CORE
+      - CLE
+
+  FCC-CL1:
+    name: Forge Cloud Central
+    type: cloud
+    zones:
+      - DCI
+      - CORE
+      - CLE
+
+  FCW-CL1:
+    name: Forge Cloud West
+    type: cloud
+    zones:
+      - DCI
+      - CORE
+      - CLE
