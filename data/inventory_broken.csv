@@ -3,7 +3,7 @@ ACY-DC1-core-01,10.100.1.1,core
 ACY-DC1-core-02,10.100.1.2,core
 ACY-DC1-tdist-01,10.100.1.11,tdist
 ACY-DC1-tdist-02,10.100.1.12,tdist
-ACY-DC1-udist-01,10.100.1.21,udist
+ACY-DC1-udist-01,10.100.1.22,udist
 ACY-DC1-udist-02,10.100.1.22,udist
 ACY-DC1-cle-01,10.100.1.101,cle
 ACY-DC1-cle-02,10.100.1.102,cle
@@ -12,9 +12,10 @@ HFA-DC1-core-02,10.200.1.2,core
 HFA-DC1-tdist-01,10.200.1.11,tdist
 HFA-DC1-tdist-02,10.200.1.12,tdist
 HFA-DC1-udist-01,10.200.1.21,udist
-HFA-DC1-udist-02,10.200.1.22,udist
+HFA-DC1-udist-02,10.200.1.22,uditst
 HFA-DC1-cle-01,10.200.1.101,cle
-HFA-DC1-cle-02,10.200.1.102,cle
+HFA-DC1-cle-02,10.200.1.102,dle
+FAKE_SITE-core-01,1.1.1.1,core
 FCE-CL1-core-01,10.224.0.1,core
 FCE-CL1-core-02,10.224.0.2,core
 FCE-CL1-dci-01,10.224.0.11,dci
@@ -22,7 +23,7 @@ FCE-CL1-dci-02,10.224.0.12,dci
 FCE-CL1-cle-01,10.224.0.101,cle
 FCE-CL1-cle-02,10.224.0.102,cle
 FCC-CL1-core-01,10.224.4.1,core
-FCC-CL1-core-02,10.224.4.2,core
+FCC-CL1-core-02,10.224.4.1,core
 FCC-CL1-dci-01,10.224.4.11,dci
 FCC-CL1-dci-02,10.224.4.12,dci
 FCC-CL1-cle-01,10.224.4.101,cle
