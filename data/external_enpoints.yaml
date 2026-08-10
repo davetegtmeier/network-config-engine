@@ -1,0 +1,20 @@
+external_endpoints:
+  AWS-TGW-USE1:
+    name: AWS Transit Gateway US East 1
+    type: cloud
+    provider: AWS
+
+  AWS-TGW-USW1:
+    name: AWS Transit Gateway US West 1
+    type: cloud
+    provider: AWS
+
+  AZURE-GW-EUS:
+    name: Azure Gateway East US
+    type: cloud
+    provider: AZURE
+
+  AZURE-GW-WUS:
+    name: Azure Gateway West US
+    type: cloud
+    provider: AZURE
