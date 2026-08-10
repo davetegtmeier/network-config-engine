@@ -51,7 +51,6 @@ if __name__ == "__main__":
                 site_data = sites[site_code]
 
                 if zone in site_data["zones"]:
-                    print(f"{inventory_hostname} -> {site_code} ({zone})")
                     router_lookup[inventory_hostname] = {"site": site_code, "zone": zone}
                 else:
                     print(f"{zone} is not a valid zone for {site_code}") 
@@ -83,8 +82,8 @@ if __name__ == "__main__":
             print(f"Duplicate router/VRF relationship: {vrf_hostname} - {vrf_name}")
         else:
             router_vrf_pairs.add(router_vrf_pair)
-            print(router_vrf_pair)
 
+    # Validate BGP adjacencies and derive managed endpoint metadata.
     for adjacency in bgp_adjacencies:
         endpoint1 = adjacency["endpoint1"].strip().upper()
         endpoint2 = adjacency["endpoint2"].strip().upper()

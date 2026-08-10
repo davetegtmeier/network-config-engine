@@ -1,5 +1,7 @@
 from pathlib import Path
+
 import csv
+
 
 def load_bgp_adjacencies(filepath: Path):
     with open(filepath, mode='r', encoding='utf-8-sig') as file:
@@ -9,6 +11,7 @@ def load_bgp_adjacencies(filepath: Path):
             bgp_adjacencies.append(adjacency)
 
     return bgp_adjacencies
+
 
 if __name__ == "__main__":
     bgp_adjacencies_file = Path("data/bgp_adjacencies.csv")
