@@ -3,15 +3,21 @@ from pathlib import Path
 from sites import load_sites
 from inventory import load_inventory
 from router_vrfs import load_router_vrfs
+from external_endpoints import load_external_endpoints
+from bgp_adjacencies import load_bgp_adjacencies
 
 if __name__ == "__main__":
     sites_file = Path("data/sites.yaml")
     inventory_file = Path("data/inventory.csv")
     router_vrfs_file = Path("data/router_vrfs.csv")
+    external_endpoints_file = Path("data/external_endpoints.yaml")
+    bgp_adjacencies_file = Path("data/bgp_adjacencies.csv")
 
     sites = load_sites(sites_file)
     inventory = load_inventory(inventory_file)
     router_vrfs = load_router_vrfs(router_vrfs_file)
+    external_endpoints = load_external_endpoints(external_endpoints_file)
+    bgp_adjacencies = load_bgp_adjacencies(bgp_adjacencies_file)
 
     inventory_hostnames = set()
     inventory_ip_addresses = set()
@@ -74,3 +80,32 @@ if __name__ == "__main__":
         else:
             router_vrf_pairs.add(router_vrf_pair)
             print(router_vrf_pair)
+
+    for adjacency in bgp_adjacencies:
+        endpoint1 = adjacency["endpoint1"].strip().upper()
+        endpoint2 = adjacency["endpoint2"].strip().upper()
+        vrf = adjacency["vrf"].strip().upper()
+
+        if endpoint1 == endpoint2:
+            print(f"Cannot create a BGP adjacency: {endpoint1} cannot peer with itself")
+
+        if endpoint1 not in inventory_hostnames and endpoint1 not in external_endpoints:
+            print(f"Cannot create a BGP adjacency: {endpoint1} is not a valid host")
+
+        if endpoint2 not in inventory_hostnames and endpoint2 not in external_endpoints:
+            print(f"Cannot create a BGP adjacency: {endpoint2} is not a valid host")
+
+        if vrf:
+            if endpoint1 in inventory_hostnames:
+                endpoint1_vrf = (endpoint1, vrf)
+
+                if endpoint1_vrf not in router_vrf_pairs:
+                    print(f"{endpoint1} does not have VRF {vrf}")
+
+            if endpoint2 in inventory_hostnames:
+                endpoint2_vrf = (endpoint2, vrf)
+
+                if endpoint2_vrf not in router_vrf_pairs:
+                    print(f"{endpoint2} does not have VRF {vrf}")
+        
+                
