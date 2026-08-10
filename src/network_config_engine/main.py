@@ -21,6 +21,7 @@ if __name__ == "__main__":
 
     inventory_hostnames = set()
     inventory_ip_addresses = set()
+    router_lookup = {}
 
     # Validate each router in the inventory.
     for router in inventory:
@@ -51,8 +52,9 @@ if __name__ == "__main__":
 
                 if zone in site_data["zones"]:
                     print(f"{inventory_hostname} -> {site_code} ({zone})")
+                    router_lookup[inventory_hostname] = {"site": site_code, "zone": zone}
                 else:
-                    print(f"{zone} is not a valid zone for {site_code}")
+                    print(f"{zone} is not a valid zone for {site_code}") 
 
                 break
 
@@ -69,9 +71,11 @@ if __name__ == "__main__":
         
         if vrf_hostname not in inventory_hostnames:
             print(f"{vrf_hostname} does not exist in the inventory")
+            continue
 
         if not vrf_name:
             print(f"{vrf_hostname} has a blank VRF")
+            continue
 
         router_vrf_pair = (vrf_hostname, vrf_name)
 
@@ -107,5 +111,17 @@ if __name__ == "__main__":
 
                 if endpoint2_vrf not in router_vrf_pairs:
                     print(f"{endpoint2} does not have VRF {vrf}")
-        
-                
+
+        if endpoint1 in router_lookup:
+            endpoint1_data = router_lookup[endpoint1]
+            endpoint1_site = endpoint1_data["site"]
+            endpoint1_zone = endpoint1_data["zone"]
+
+            print(f"{endpoint1}: {endpoint1_site} - {endpoint1_zone}")
+
+        if endpoint2 in router_lookup:
+            endpoint2_data = router_lookup[endpoint2]
+            endpoint2_site = endpoint2_data["site"]
+            endpoint2_zone = endpoint2_data["zone"]
+
+            print(f"{endpoint2}: {endpoint2_site} - {endpoint2_zone}")
