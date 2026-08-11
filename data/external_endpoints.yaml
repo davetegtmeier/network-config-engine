@@ -1,20 +1,20 @@
 external_endpoints:
   AWS-TGW-USE1:
     name: AWS Transit Gateway US East 1
-    type: cloud
-    provider: AWS
+    provider_code: AMZ
+    endpoint_type: AWS-TGW
 
   AWS-TGW-USW1:
     name: AWS Transit Gateway US West 1
-    type: cloud
-    provider: AWS
+    provider_code: AMZ
+    endpoint_type: AWS-TGW
 
   AZURE-GW-EUS:
     name: Azure Gateway East US
-    type: cloud
-    provider: AZURE
+    provider_code: MSF
+    endpoint_type: AZURE-GW
 
   AZURE-GW-WUS:
     name: Azure Gateway West US
-    type: cloud
-    provider: AZURE
+    provider_code: MSF
+    endpoint_type: AZURE-GW

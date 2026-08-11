@@ -1,4 +1,8 @@
 ﻿endpoint1,endpoint2,vrf
+ACY-DC1-core-01,HFA-DC1-core-01,
+ACY-DC1-core-01,HFA-DC1-core-02,
+ACY-DC1-core-02,HFA-DC1-core-01,
+ACY-DC1-core-02,HFA-DC1-core-02,
 ACY-DC1-core-01,ACY-DC1-tdist-01,
 ACY-DC1-core-01,ACY-DC1-tdist-02,
 ACY-DC1-core-02,ACY-DC1-tdist-01,

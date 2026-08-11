@@ -83,6 +83,8 @@ if __name__ == "__main__":
         else:
             router_vrf_pairs.add(router_vrf_pair)
 
+    route_map_names = set()
+
     # Validate BGP adjacencies and derive managed endpoint metadata.
     for adjacency in bgp_adjacencies:
         endpoint1 = adjacency["endpoint1"].strip().upper()
@@ -111,16 +113,75 @@ if __name__ == "__main__":
                 if endpoint2_vrf not in router_vrf_pairs:
                     print(f"{endpoint2} does not have VRF {vrf}")
 
-        if endpoint1 in router_lookup:
+        if endpoint1 in router_lookup and endpoint2 in router_lookup:
             endpoint1_data = router_lookup[endpoint1]
+            endpoint2_data = router_lookup[endpoint2]
+
             endpoint1_site = endpoint1_data["site"]
             endpoint1_zone = endpoint1_data["zone"]
 
-            print(f"{endpoint1}: {endpoint1_site} - {endpoint1_zone}")
-
-        if endpoint2 in router_lookup:
-            endpoint2_data = router_lookup[endpoint2]
             endpoint2_site = endpoint2_data["site"]
             endpoint2_zone = endpoint2_data["zone"]
 
-            print(f"{endpoint2}: {endpoint2_site} - {endpoint2_zone}")
+            if endpoint1_site == endpoint2_site:
+                local_route_map_out = (
+                    f"RM.BGP.LOCAL."
+                    f"{endpoint1_site}."
+                    f"{endpoint1_zone}."
+                    f"{endpoint2_zone}."
+                    f"OUT"
+                )
+                route_map_names.add(local_route_map_out)
+
+                local_route_map_in = (
+                    f"RM.BGP.LOCAL."
+                    f"{endpoint1_site}."
+                    f"{endpoint1_zone}."
+                    f"{endpoint2_zone}."
+                    f"IN"
+                )
+                route_map_names.add(local_route_map_in)
+
+            else:
+                xdc_route_map_out = (
+                    f"RM.BGP.XDC."
+                    f"{endpoint1_site}."
+                    f"{endpoint1_zone}."
+                    f"{endpoint2_site}."
+                    f"{endpoint2_zone}."
+                    f"OUT"
+                )
+                route_map_names.add(xdc_route_map_out)
+
+                xdc_route_map_in = (
+                    f"RM.BGP.XDC."
+                    f"{endpoint1_site}."
+                    f"{endpoint1_zone}."
+                    f"{endpoint2_site}."
+                    f"{endpoint2_zone}."
+                    f"IN"
+                )
+                route_map_names.add(xdc_route_map_in)
+
+        if endpoint1 in router_lookup and endpoint2 in external_endpoints:
+            endpoint1_data = router_lookup[endpoint1]
+            endpoint1_site = endpoint1_data["site"]
+            endpoint1_zone = endpoint1_data["zone"]
+        
+            external_data = external_endpoints[endpoint2]
+            provider_code = external_data["provider_code"]
+            endpoint_type = external_data["endpoint_type"]
+        
+            ext_route_map_out = (
+                f"RM.BGP.XDC."
+                f"{endpoint1_site}."
+                f"{endpoint1_zone}."
+                f"{vrf}."
+                f"{provider_code}."
+                f"{endpoint_type}."
+                f"OUT"
+            )
+            route_map_names.add(ext_route_map_out)
+        
+    for route_map_name in route_map_names:
+        print(route_map_name)
